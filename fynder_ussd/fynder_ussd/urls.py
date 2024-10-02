@@ -15,8 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.shortcuts import redirect
+
+# Redirect view for the root URL
+def redirect_to_ussd(request):
+    return redirect('ussd/')  # Redirect to your USSD service
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('ussd/', include('ussd.urls')),  # Replace 'your_ussd_app' with your actual app name
+    path('', redirect_to_ussd),  # Redirect the root URL to /ussd/
 ]
+
